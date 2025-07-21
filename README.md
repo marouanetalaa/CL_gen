@@ -20,3 +20,17 @@ avec :
 4. `ℓ` – mot de liaison (par exemple « est », « de », « le »)
 
 Le notebook `notebooks/en/faiss_with_hf_datasets_and_clip.ipynb` présente un exemple d'utilisation autour de l'indexation de données multimodales.
+
+## Utilisation de l'agent
+
+Le module `cl_gen.augment` fournit une implémentation minimaliste d'un agent de
+génération de requêtes basée sur `pydantic`. Si l'SDK `openai` est disponible,
+il peut être utilisé pour générer dynamiquement les tokens de bruit.
+
+```python
+from cl_gen.augment import QueryConfig, QueryGeneratorAgent
+
+cfg = QueryConfig(T=10, s="Paris", r="est la capitale", ell="de", mode="supportive")
+agent = QueryGeneratorAgent(config=cfg)
+print(agent.generate_queries(2))
+```
